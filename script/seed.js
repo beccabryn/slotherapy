@@ -14,38 +14,68 @@ async function seed() {
   await db.sync({force: true})
   console.log('db synced!')
 
-  const users = await Promise.all([
-    User.create({
+  //USERS
+  const users = [
+    {
       email: 'rduhamel9@gmail.com',
       password: '123',
       firstName: 'Becca'
-    }),
-    User.create({
+    },
+    {
       email: 'beyonce@gmail.com',
       password: '123',
       firstName: 'Beyonce'
+    }
+  ]
+  const allUsers = await Promise.all(
+    users.map(user => {
+      return User.create(user)
     })
-  ])
+  )
   console.log(`seeded ${users.length} users`)
 
-  const sessions = await Promise.all([
-    Session.create({
+  //SESSIONS
+  const sessions = [
+    {
       frequency: ['1 Min'],
-      mood: [3],
-      productivity: [4],
-      stress: [3]
-    }),
-    Session.create({
+      mood: 3,
+      productivity: 4,
+      stress: 3
+    },
+    {
       frequency: ['10 Min'],
-      mood: [5],
-      productivity: [4],
-      stress: [1]
+      mood: 5,
+      productivity: 4,
+      stress: 1
+    }
+  ]
+  const allSessions = await Promise.all(
+    sessions.map(session => {
+      return Session.create(session)
     })
-  ])
+  )
   console.log(`seeded ${sessions.length} sessions`)
 
-  const messages = await Promise.all([
-    Message.create({
+  //ALERTS
+  const alerts = [
+    {
+      liked: true,
+      completed: true
+    },
+    {
+      liked: false,
+      completed: false
+    }
+  ]
+  const allAlerts = await Promise.all(
+    alerts.map(alert => {
+      return Alert.create(alert)
+    })
+  )
+
+  //MESSAGES
+  const messages = [
+    {
       title: 'Focus Change',
       steps: [
         ['Hold one finger a few inches away from the eye'],
@@ -56,8 +86,8 @@ async function seed() {
         ['Focus on something more than 8 feet away'],
         ['Repeat 3 times']
       ]
-    }),
-    Message.create({
+    },
+    {
       title: 'The Head Tilt (side)',
       steps: [
         ['Start with head in a comfortable aligned position'],
@@ -70,8 +100,8 @@ async function seed() {
         ['Do this 2-3 times on each side']
       ],
       warnings: [['Do not overstretch']]
-    }),
-    Message.create({
+    },
+    {
       title: 'The Head Tilt (forward)',
       steps: [
         ['Gently tilt your head forward to stretch the back of your neck'],
@@ -82,76 +112,111 @@ async function seed() {
         ['Hold only tensions that feel good'],
         ['Do not stretch to the point of pain']
       ]
+    }
+  ]
+  const allMessages = await Promise.all(
+    messages.map(message => {
+      return Message.create(message)
     })
-  ])
+  )
   console.log(`seeded ${messages.length} messages`)
 
-  const slotherapists = await Promise.all([
-    Slotherapist.create({
+  //SLOTHERAPISTS
+  const slotherapists = [
+    {
       name: 'Evan',
       imageUrl:
         'https://ticotimes.net/wp-content/uploads/2019/11/3-toed-sloth-TRR.jpg'
-    }),
-    Slotherapist.create({
+    },
+    {
       name: 'Louise',
       imageUrl:
         'https://www.rd.com/wp-content/uploads/2016/04/sloths-slide3SamTrull.jpg'
-    }),
-    Slotherapist.create({
+    },
+    {
       name: 'Sergei',
       imageUrl:
         'https://c402277.ssl.cf1.rackcdn.com/photos/6526/images/hero_small/sloth_%28c%29_Jorge_Salas_International_Expeditions.JPG?1394634201'
-    }),
-    Slotherapist.create({
+    },
+    {
       name: 'Deb',
       imageUrl:
         'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQADNBNjXWopxus3OxbIaJjp7B0GSB60ucKVyZ-FDBRroXDTVfc&s'
+    }
+  ]
+  const allSlotherapists = await Promise.all(
+    slotherapists.map(slotherapist => {
+      return Slotherapist.create(slotherapist)
     })
-  ])
+  )
   console.log(`seeded ${slotherapists.length} slotherapists`)
 
-  const slothImages = await Promise.all([
-    SlothImg.create({
+  //IMAGES
+  const slothImages = [
+    {
       imageUrl:
         'https://cdn-image.travelandleisure.com/sites/default/files/1539963100/sloth-SLOTH1018.jpg'
-    }),
-    SlothImg.create({
+    },
+    {
       imageUrl:
         'https://image.businessinsider.com/5d4492b4b44ce7088915f5bc?width=1100&format=jpeg&auto=webp'
-    }),
-    SlothImg.create({
+    },
+    {
       imageUrl:
         'https://www.washingtonpost.com/wp-apps/imrs.php?src=https://arc-anglerfish-washpost-prod-washpost.s3.amazonaws.com/public/PCU77LE5UMI6TMT75UUUF5Z5OA.jpg&w=767'
-    }),
-    SlothImg.create({
+    },
+    {
       imageUrl:
         'https://cdn.news.uchicago.edu/sites/default/files/styles/full_width/public/images/2019-06/sloth_family_tree.jpg?itok=ydcO7ctD'
-    }),
-    SlothImg.create({
+    },
+    {
       imageUrl:
         'https://images2.minutemediacdn.com/image/upload/c_fill,g_auto,h_1248,w_2220/f_auto,q_auto,w_1100/v1555303893/shape/mentalfloss/monster_primary_0.png'
-    }),
-    SlothImg.create({
+    },
+    {
       imageUrl: 'https://scx1.b-cdn.net/csz/news/800/2019/slothsarefar.jpg'
-    }),
-    SlothImg.create({
+    },
+    {
       imageUrl:
         'https://ichef.bbci.co.uk/wwfeatures/live/624_351/images/live/p0/51/5r/p0515rhm.jpg'
-    }),
-    SlothImg.create({
+    },
+    {
       imageUrl:
         'https://media.mnn.com/assets/images/2018/04/LItSL_4.jpg.990x0_q80_crop-smart.jpg'
-    }),
-    SlothImg.create({
+    },
+    {
       imageUrl:
         'https://upload.wikimedia.org/wikipedia/commons/2/2e/MC_Drei-Finger-Faultier.jpg'
-    }),
-    SlothImg.create({
+    },
+    {
       imageUrl:
         'https://media.tacdn.com/media/attractions-splice-spp-674x446/08/49/c6/9d.jpg'
+    }
+  ]
+  const allSlothImages = await Promise.all(
+    slothImages.map(image => {
+      return SlothImg.create(image)
     })
-  ])
+  )
   console.log(`seeded ${slothImages.length} sloth images`)
+
+  //ASSOCIATIONS
+  for (const i in allSessions) {
+    await allUsers[i].addSession(allSessions[i])
+  }
+  for (const i in allAlerts) {
+    await allSessions[i].addAlert(allAlerts[i])
+  }
+  for (const i in allSlotherapists) {
+    await allSessions[i].setSlotherapist(allSlotherapists[i])
+  }
+  for (const i in allMessages) {
+    await allAlerts[i].setMessage(allMessages[i])
+  }
+  // console.log('stuff on user: ', allSlothImages[0].__proto__)
+  for (const i in allSlothImages) {
+    await allAlerts[i].setSlothImg(allSlothImages[i])
+  }
 
   console.log(`seeded successfully`)
 }

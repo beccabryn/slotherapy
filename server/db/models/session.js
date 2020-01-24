@@ -9,21 +9,24 @@ const Session = db.define('session', {
     }
   },
   mood: {
-    type: Sequelize.ARRAY(Sequelize.INTEGER),
+    type: Sequelize.INTEGER,
     validation: {
-      isIn: [[1], [2], [3], [4], [5]]
+      min: 1,
+      max: 5
     }
   },
   productivity: {
-    type: Sequelize.ARRAY(Sequelize.INTEGER),
+    type: Sequelize.INTEGER,
     validation: {
-      isIn: [[1], [2], [3], [4], [5]]
+      min: 1,
+      max: 5
     }
   },
   stress: {
-    type: Sequelize.ARRAY(Sequelize.INTEGER),
+    type: Sequelize.INTEGER,
     validation: {
-      isIn: [[1], [2], [3], [4], [5]]
+      min: 1,
+      max: 5
     }
   }
 })

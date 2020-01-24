@@ -3,12 +3,10 @@ const db = require('../db')
 
 const Slotherapist = db.define('slotherapist', {
   name: {
-    type: Sequelize.STRING,
-    allowNull: false
+    type: Sequelize.STRING
   },
   imageUrl: {
-    type: Sequelize.STRING,
-    allowNull: false
+    type: Sequelize.STRING
   }
 })
 
