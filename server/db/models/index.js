@@ -1,7 +1,7 @@
 const User = require('./user')
 const Alert = require('./alert')
 const Message = require('./message')
-const Session = require('./session')
+const Metric = require('./metric')
 const Slotherapist = require('./slotherapist')
 const SlothImg = require('./slothImg')
 
@@ -12,19 +12,19 @@ const SlothImg = require('./slothImg')
  *    BlogPost.belongsTo(User)
  */
 
-Session.belongsTo(User)
-User.hasMany(Session)
+Metric.belongsTo(User)
+User.hasMany(Metric)
 
-Slotherapist.belongsTo(Session)
-Session.hasOne(Slotherapist)
+// Slotherapist.belongsTo(Session)
+User.hasOne(Slotherapist)
 
-Session.hasMany(Alert)
-Alert.belongsTo(Session)
+User.hasMany(Alert)
+Alert.belongsTo(User)
 
-Message.belongsTo(Alert)
+// Message.belongsTo(Alert)
 Alert.hasOne(Message)
 
-SlothImg.belongsTo(Alert)
+// SlothImg.belongsTo(Alert)
 Alert.hasOne(SlothImg)
 /**
  * We'll export all of our models here, so that any time a module needs a model,
@@ -36,7 +36,7 @@ module.exports = {
   User,
   Alert,
   Message,
-  Session,
+  Metric,
   Slotherapist,
   SlothImg
 }

@@ -26,6 +26,13 @@ const User = db.define('user', {
   firstName: {
     type: Sequelize.STRING,
     allowNull: true
+  },
+  frequency: {
+    type: Sequelize.INTEGER,
+    validation: {
+      min: 1,
+      max: 180
+    }
   }
 })
 

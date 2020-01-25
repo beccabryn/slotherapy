@@ -5,6 +5,7 @@ import history from '../history'
  * ACTION TYPES
  */
 const GET_USER = 'GET_USER'
+const UPDATE_USER = 'UPDATE_USER'
 const REMOVE_USER = 'REMOVE_USER'
 
 /**
@@ -16,6 +17,7 @@ const defaultUser = {}
  * ACTION CREATORS
  */
 const getUser = user => ({type: GET_USER, user})
+const updateUser = user => ({type: UPDATE_USER, user})
 const removeUser = () => ({type: REMOVE_USER})
 
 /**
@@ -40,9 +42,21 @@ export const auth = (email, password, method) => async dispatch => {
 
   try {
     dispatch(getUser(res.data))
-    history.push('/home')
+    history.push('/setup')
   } catch (dispatchOrHistoryErr) {
     console.error(dispatchOrHistoryErr)
+  }
+}
+
+export const update = (userId, slotherapistId, frequency) => {
+  return async dispatch => {
+    const res = await axios.put(`/api/users/${userId}`, {
+      slotherapistId,
+      frequency
+    })
+    const action = getMessages(res.data)
+    dispatch(action)
+    history.push('/home')
   }
 }
 

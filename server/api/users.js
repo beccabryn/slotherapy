@@ -1,5 +1,5 @@
 const router = require('express').Router()
-const {User} = require('../db/models')
+const {User, Slotherapist} = require('../db/models')
 module.exports = router
 
 router.get('/', async (req, res, next) => {
@@ -20,6 +20,18 @@ router.get('/:id', async (req, res, next) => {
   try {
     const user = await User.findByPk(req.params.id)
     res.json(user)
+  } catch (error) {
+    next(error)
+  }
+})
+
+router.put('/:id', async (req, res, next) => {
+  try {
+    const user = await User.findByPk(req.params.id)
+    const slotherapist = await Slotherapist.findByPk(req.body.slotherapistId)
+    const updatedUser = await user.update(req.body)
+    await updatedUser.setSlotherapist(slotherapist)
+    res.json(updatedUser)
   } catch (error) {
     next(error)
   }

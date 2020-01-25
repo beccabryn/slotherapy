@@ -1,13 +1,7 @@
 const Sequelize = require('sequelize')
 const db = require('../db')
 
-const Session = db.define('session', {
-  frequency: {
-    type: Sequelize.ARRAY(Sequelize.STRING),
-    validation: {
-      isIn: [['1 Min'], ['10 Min'], ['30 Min'], ['1 Hr'], ['2 Hrs'], ['3 Hrs']]
-    }
-  },
+const Metrics = db.define('metric', {
   mood: {
     type: Sequelize.INTEGER,
     validation: {
@@ -31,4 +25,4 @@ const Session = db.define('session', {
   }
 })
 
-module.exports = Session
+module.exports = Metrics

@@ -3,7 +3,7 @@
 const db = require('../server/db')
 const {
   User,
-  Session,
+  Metric,
   Alert,
   Message,
   Slotherapist,
@@ -19,12 +19,26 @@ async function seed() {
     {
       email: 'rduhamel9@gmail.com',
       password: '123',
-      firstName: 'Becca'
+      firstName: 'Becca',
+      frequency: 1
     },
     {
       email: 'beyonce@gmail.com',
       password: '123',
-      firstName: 'Beyonce'
+      firstName: 'Beyonce',
+      frequency: 10
+    },
+    {
+      email: 'dannydevito@gmail.com',
+      password: '123',
+      firstName: 'Danny',
+      frequency: 180
+    },
+    {
+      email: 'marthastewart@gmail.com',
+      password: '123',
+      firstName: 'Martha',
+      frequency: 120
     }
   ]
   const allUsers = await Promise.all(
@@ -34,27 +48,35 @@ async function seed() {
   )
   console.log(`seeded ${users.length} users`)
 
-  //SESSIONS
-  const sessions = [
+  //METRICS
+  const metrics = [
     {
-      frequency: ['1 Min'],
       mood: 3,
       productivity: 4,
       stress: 3
     },
     {
-      frequency: ['10 Min'],
       mood: 5,
       productivity: 4,
       stress: 1
+    },
+    {
+      mood: 2,
+      productivity: 1,
+      stress: 5
+    },
+    {
+      mood: 3,
+      productivity: 3,
+      stress: 3
     }
   ]
-  const allSessions = await Promise.all(
-    sessions.map(session => {
-      return Session.create(session)
+  const allMetrics = await Promise.all(
+    metrics.map(metric => {
+      return Metric.create(metric)
     })
   )
-  console.log(`seeded ${sessions.length} sessions`)
+  console.log(`seeded ${metrics.length} metrics`)
 
   //ALERTS
   const alerts = [
@@ -201,20 +223,20 @@ async function seed() {
   console.log(`seeded ${slothImages.length} sloth images`)
 
   //ASSOCIATIONS
-  for (const i in allSessions) {
-    await allUsers[i].addSession(allSessions[i])
+  for (const i in allMetrics) {
+    await allUsers[i].addMetric(allMetrics[i])
   }
   for (const i in allAlerts) {
-    await allSessions[i].addAlert(allAlerts[i])
+    await allUsers[i].addAlert(allAlerts[i])
   }
   for (const i in allSlotherapists) {
-    await allSessions[i].setSlotherapist(allSlotherapists[i])
+    await allUsers[i].setSlotherapist(allSlotherapists[i])
   }
-  for (const i in allMessages) {
+  for (const i in allAlerts) {
     await allAlerts[i].setMessage(allMessages[i])
   }
   // console.log('stuff on user: ', allSlothImages[0].__proto__)
-  for (const i in allSlothImages) {
+  for (const i in allAlerts) {
     await allAlerts[i].setSlothImg(allSlothImages[i])
   }
 
