@@ -87,6 +87,14 @@ async function seed() {
     {
       liked: false,
       completed: false
+    },
+    {
+      liked: false,
+      completed: true
+    },
+    {
+      liked: true,
+      completed: false
     }
   ]
   const allAlerts = await Promise.all(
@@ -134,6 +142,41 @@ async function seed() {
         ['Hold only tensions that feel good'],
         ['Do not stretch to the point of pain']
       ]
+    },
+    {
+      title: 'The Scream',
+      steps: [
+        ['Raise your eyebrows and open your eyes as wide as possible'],
+        [
+          'At the same time, open your mouth and stretch the muscles around your nose and chin and stick your tongue out'
+        ],
+        ['Hold this stretch for 5-10 seconds']
+      ],
+      warnings: [
+        [
+          'If you hear clicking or popping noises when opening mouth, check with your dentist before doing this stretch'
+        ]
+      ]
+    },
+    {
+      title: 'Shoulder Shrug',
+      steps: [
+        [
+          'Raise the top of your shoulder toward your ears until you feel slight tension in your neck and shoulders'
+        ],
+        ['Hold for 3-5 seconds, then relax your shoulders downward'],
+        ['Repeat 2-3 times']
+      ]
+    },
+    {
+      title: 'Tri Stretch',
+      steps: [
+        ['Hold right elbow with left hand'],
+        ['Gently pull elbow behind head until an easy tension-stretch is felt'],
+        ['Hold for 5-10 seconds'],
+        ['Repeat on other side']
+      ],
+      warnings: [['Do not stretch to the point of pain']]
     }
   ]
   const allMessages = await Promise.all(

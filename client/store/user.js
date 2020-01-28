@@ -54,7 +54,7 @@ export const update = (userId, slotherapistId, frequency) => {
       slotherapistId,
       frequency
     })
-    const action = getMessages(res.data)
+    const action = updateUser(res.data)
     dispatch(action)
     history.push('/home')
   }
@@ -76,6 +76,8 @@ export const logout = () => async dispatch => {
 export default function(state = defaultUser, action) {
   switch (action.type) {
     case GET_USER:
+      return action.user
+    case UPDATE_USER:
       return action.user
     case REMOVE_USER:
       return defaultUser

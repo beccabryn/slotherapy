@@ -19,3 +19,16 @@ router.get('/:id', async (req, res, next) => {
     next(error)
   }
 })
+
+router.get('/users/:id', async (req, res, next) => {
+  try {
+    const currSloth = await Slotherapist.findOne({
+      where: {
+        userId: req.params.id
+      }
+    })
+    res.json(currSloth)
+  } catch (error) {
+    next(error)
+  }
+})

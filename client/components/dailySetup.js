@@ -36,49 +36,51 @@ class DailySetup extends React.Component {
 
   render() {
     const slotherapists = this.props.slotherapists
-    console.log('PROPS', this.props)
+    console.log('STATE', this.state)
     return (
-      <div>
+      <Wrapper>
         <div>
-          <h1>Choose Your Fighter</h1>
-          <ul>
+          <Title>Choose Your Fighter</Title>
+          <Pics>
             {slotherapists.map(sloth => {
               return (
-                <li onClick={() => this.setState({chosenSloth: sloth.id})}>
-                  <img key={sloth.id} src={sloth.imageUrl} />
-                </li>
+                <a onClick={() => this.setState({chosenSloth: sloth.id})}>
+                  <Crop>
+                    <Pic key={sloth.id} src={sloth.imageUrl} />
+                  </Crop>
+                </a>
               )
             })}
-          </ul>
+          </Pics>
         </div>
         <div>
-          <h1>Notification Timer</h1>
-          <h4>Every:</h4>
-          <ul>
-            <button onClick={() => this.setState({chosenFreq: 1})}>
+          <Title>Notification Timer</Title>
+          <Subtitle>Every:</Subtitle>
+          <Range>
+            <Button onClick={() => this.setState({chosenFreq: 1})}>
               1 MIN
-            </button>
-            <button onClick={() => this.setState({chosenFreq: 10})}>
+            </Button>
+            <Button onClick={() => this.setState({chosenFreq: 10})}>
               10 MIN
-            </button>
-            <button onClick={() => this.setState({chosenFreq: 30})}>
+            </Button>
+            <Button onClick={() => this.setState({chosenFreq: 30})}>
               30 MIN
-            </button>
-            <button onClick={() => this.setState({chosenFreq: 60})}>
+            </Button>
+            <Button onClick={() => this.setState({chosenFreq: 60})}>
               1 HR
-            </button>
-            <button onClick={() => this.setState({chosenFreq: 120})}>
+            </Button>
+            <Button onClick={() => this.setState({chosenFreq: 120})}>
               2 HRS
-            </button>
-            <button onClick={() => this.setState({chosenFreq: 180})}>
+            </Button>
+            <Button onClick={() => this.setState({chosenFreq: 180})}>
               3 HRS
-            </button>
-          </ul>
+            </Button>
+          </Range>
         </div>
-        <div>
-          <button onClick={() => this.handleSubmit()}>Continue</button>
-        </div>
-      </div>
+        <Container>
+          <Continue onClick={() => this.handleSubmit()}>Continue</Continue>
+        </Container>
+      </Wrapper>
     )
   }
 }
@@ -97,3 +99,90 @@ const mapDispatchToProps = dispatch => ({
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(DailySetup)
+
+const Wrapper = styled.div``
+
+const Crop = styled.div`
+  width: 200px;
+  height: 200px;
+  position: relative;
+  overflow: hidden;
+  border-radius: 50%;
+`
+
+const Pic = styled.img`
+  display: inline;
+  margin: 0 auto;
+  margin-left: -25%; //centers the image
+  height: 100%;
+  width: auto;
+  opacity: 0.7;
+`
+
+const Pics = styled.ul`
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+  padding-inline-start: 0px;
+`
+
+const Title = styled.ul`
+  font-family: 'Josefin Sans', sans-serif;
+  text-transform: uppercase;
+  color: #636363;
+  margin-block-start: 50px;
+  font-weight: 100;
+  font-size: 30px;
+  text-align: center;
+  padding-inline-start: 0px;
+`
+
+const Subtitle = styled.h4`
+  font-family: 'Josefin Sans', sans-serif;
+  text-transform: uppercase;
+  color: #636363;
+  font-weight: 100;
+  font-size: 20px;
+  text-align: center;
+  padding-inline-start: 0px;
+`
+
+const Range = styled.ul`
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+`
+
+const Button = styled.button`
+  border-radius: 50%;
+  height: 100px;
+  width: 100px;
+  font-size: 14px;
+  margin-block-end: 2em;
+  font-family: 'Josefin Sans', sans-serif;
+  font-weight: 100;
+  font-size: 17px;
+  color: #636363;
+  border-color: #636363;
+  background-color: #f2f2f2;
+`
+
+const Continue = styled.button`
+  font-size: 15px;
+  background-color: #f2f2f2;
+  border: none;
+  color: #636363;
+  padding: 15px 32px;
+  text-transform: uppercase;
+  font-family: 'Josefin Sans', sans-serif;
+  font-weight: 100;
+  margin-block-end: 2em;
+`
+
+const Container = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+`

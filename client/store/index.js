@@ -5,8 +5,10 @@ import {composeWithDevTools} from 'redux-devtools-extension'
 import user from './user'
 import message from './message'
 import slotherapist from './slotherapist'
+import metric from './metric'
+import alert from './alert'
 
-const reducer = combineReducers({user, message, slotherapist})
+const reducer = combineReducers({user, message, slotherapist, metric, alert})
 const middleware = composeWithDevTools(
   applyMiddleware(thunkMiddleware, createLogger({collapsed: true}))
 )

@@ -6,7 +6,6 @@ import Routes from './routes'
 const App = () => {
   return (
     <div>
-      {window.location.href.endsWith('/splash') ? null : <Navbar />}
       <Routes />
     </div>
   )

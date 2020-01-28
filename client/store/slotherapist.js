@@ -6,7 +6,7 @@ import history from '../history'
  */
 const GET_SLOTHERAPISTS = 'GET_SLOTHERAPISTS'
 const GET_SINGLE_SLOTHERAPIST = 'GET_SINGLE_SLOTHERAPIST'
-
+const GET_CURR_SLOTH = 'GET_CURR_SLOTH'
 /**
  * INITIAL STATE
  */
@@ -26,6 +26,7 @@ const getSingleSlotherapist = slotherapist => ({
   type: GET_SINGLE_SLOTHERAPIST,
   slotherapist
 })
+const getCurrSloth = slotherapist => ({type: GET_CURR_SLOTH, slotherapist})
 
 /**
  * THUNK CREATORS
@@ -38,10 +39,18 @@ export const fetchSlotherapists = () => {
   }
 }
 
-export const fetchMessage = id => {
+export const fetchSlotherapist = id => {
   return async dispatch => {
     const res = await axios.get(`/api/slotherapists/${id}`)
     const action = getSingleSlotherapist(res.data)
+    dispatch(action)
+  }
+}
+
+export const fetchCurrSloth = id => {
+  return async dispatch => {
+    const res = await axios.get(`/api/slotherapists/users/${id}`)
+    const action = getCurrSloth(res.data)
     dispatch(action)
   }
 }
@@ -54,6 +63,8 @@ const reducer = (state = initialState, action) => {
     case GET_SLOTHERAPISTS:
       return {...state, slotherapists: action.slotherapists}
     case GET_SINGLE_SLOTHERAPIST:
+      return {...state, slotherapist: action.slotherapist}
+    case GET_CURR_SLOTH:
       return {...state, slotherapist: action.slotherapist}
     default:
       return state

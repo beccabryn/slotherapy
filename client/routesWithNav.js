@@ -2,15 +2,20 @@ import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import {withRouter, Route, Switch} from 'react-router-dom'
 import PropTypes from 'prop-types'
-import {Login, Signup, UserHome, SplashPage, DailySetup} from './components'
+import {
+  Login,
+  UserHome,
+  DailySetup,
+  Navbar,
+  Liked,
+  Completed,
+  CurrAlert
+} from './components'
 import {me} from './store'
-import RoutesWithNav from './routesWithNav'
+
 /**
  * COMPONENT
  */
-
-Notification.requestPermission()
-
 class Routes extends Component {
   componentDidMount() {
     this.props.loadInitialData()
@@ -20,13 +25,25 @@ class Routes extends Component {
     const {isLoggedIn} = this.props
 
     return (
-      <Switch>
-        {/* Routes placed here are available to all visitors */}
-        <Route exact path="/" component={SplashPage} />
-        <Route exact path="/login" component={Login} />
-        <Route exact path="/signup" component={Signup} />
-        <Route component={RoutesWithNav} />
-      </Switch>
+      <div>
+        <Navbar />
+        <Switch>
+          {/* Routes placed here are available to all visitors */}
+
+          {isLoggedIn && (
+            <Switch>
+              {/* Routes placed here are only available after logging in */}
+              <Route path="/setup" component={DailySetup} />
+              <Route path="/home" component={UserHome} />
+              <Route path="/liked" component={Liked} />
+              <Route path="/completed" component={Completed} />
+              <Route path="/curralert" component={CurrAlert} />
+            </Switch>
+          )}
+          {/* Displays our Login component as a fallback */}
+          <Route component={Login} />
+        </Switch>
+      </div>
     )
   }
 }
